@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="600.0" prefWidth="800.0" spacing="15.0" style="-fx-padding: 20; -fx-background-color: #ecf0f1;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.study_document_managing_project.UserSearchController">
+    <children>
+        <Label text="Search Users &amp; Contributions" textFill="#2c3e50">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <HBox spacing="10.0">
+            <children>
+                <TextField fx:id="txtUserSearch" prefHeight="35.0" prefWidth="400.0" promptText="Enter username or email to search..." />
+                <Button mnemonicParsing="false" onAction="#handleSearchUsers" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-weight: bold;" text="Search" />
+            </children>
+        </HBox>
+
+        <SplitPane dividerPositions="0.5" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+            <items>
+                <VBox spacing="5.0" style="-fx-padding: 5;">
+                    <children>
+                        <Label style="-fx-font-weight: bold;" text="Users List (Select a user to view their files):" textFill="#34495e" />
+                        <TableView fx:id="tableUsers" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colUsername" prefWidth="180.0" text="Username" />
+                                <TableColumn fx:id="colEmail" prefWidth="250.0" text="Email" />
+                                <TableColumn fx:id="colDepartment" prefWidth="220.0" text="Department / Viện" />
+                                <TableColumn fx:id="colRole" prefWidth="100.0" text="Role" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+
+                <VBox spacing="5.0" style="-fx-padding: 5;">
+                    <children>
+                        <Label fx:id="lblUserMaterialsTitle" style="-fx-font-weight: bold;" text="Contributed Materials:" textFill="#27ae60" />
+                        <TableView fx:id="tableUserMaterials" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colMatTitle" prefWidth="250.0" text="Document Title" />
+                                <TableColumn fx:id="colMatSubject" prefWidth="180.0" text="Subject" />
+                                <TableColumn fx:id="colMatCategory" prefWidth="150.0" text="Category" />
+                                <TableColumn fx:id="colMatRating" prefWidth="80.0" text="Rating" />
+                                <TableColumn fx:id="colMatDownloads" prefWidth="90.0" text="Downloads" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+            </items>
+        </SplitPane>
+    </children>
+</VBox>

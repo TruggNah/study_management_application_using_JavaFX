@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.ToggleButton?>
+<BorderPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.study_document_managing_project.DashboardController">
+
+    <left>
+        <VBox prefWidth="230.0" spacing="10.0" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+            <children>
+                <Label text="MAIN MENU" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                </Label>
+
+                <Button fx:id="btnTabBrowse" mnemonicParsing="false" onAction="#handleSwitchTab" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10;" text="🔍 Browse Materials" />
+                <Button fx:id="btnTabUpload" mnemonicParsing="false" onAction="#handleSwitchTab" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10;" text="📤 Upload Document" />
+                <Button fx:id="btnTabPersonal" mnemonicParsing="false" onAction="#handleSwitchTab" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10;" text="⭐ My Library" />
+
+                <Button fx:id="btnAdminTools" mnemonicParsing="false" onAction="#handleMenuAdminClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10; -fx-font-weight: bold;" text="🛠 Tools for Admins" />
+
+                <VBox alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS">
+                    <children>
+                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogout" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="🚪 Logout" />
+                        <Button onAction="#handleExitApplication" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;" text="Exit Application" />
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane style="-fx-background-color: #ecf0f1; -fx-padding: 20;">
+            <children>
+
+                <VBox fx:id="paneBrowse" spacing="15.0">
+                    <children>
+                        <Label text="Explore University Materials" textFill="#2c3e50">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+
+                        <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 8;">
+                            <children>
+                                <TextField fx:id="txtSearch" prefHeight="35.0" prefWidth="300.0" promptText="Search by title..." />
+                                <ComboBox fx:id="cbSubjectSearch" prefHeight="35.0" prefWidth="120.0" promptText="All Subjects" />
+                                <ComboBox fx:id="cbCategorySearch" prefHeight="35.0" prefWidth="120.0" promptText="All Categories" />
+                                <ComboBox fx:id="cbSortBy" prefWidth="140.0" promptText="Sort By" style="-fx-background-color: #ffffff; -fx-border-color: #bdc3c7; -fx-border-radius: 4;" />
+                                <ComboBox fx:id="cbTimeFilter" prefWidth="120.0" promptText="All Time" style="-fx-background-color: #ffffff; -fx-border-color: #bdc3c7; -fx-border-radius: 4;" />
+                                <Button mnemonicParsing="false" onAction="#handleSearch" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #2980b9; -fx-text-fill: white;" text="Search" />
+                            </children>
+                        </HBox>
+
+                        <TableView fx:id="tableMaterials" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colTitle" prefWidth="220.0" text="Document Title" />
+                                <TableColumn fx:id="colFileUrl" prefWidth="200.0" text="File URL" />
+                                <TableColumn fx:id="colUploadedBy" prefWidth="130.0" text="Owner (User)" />
+                                <TableColumn fx:id="colSubjectName" prefWidth="150.0" text="Subject" />
+                                <TableColumn fx:id="colCategoryName" prefWidth="120.0" text="Category" />
+                                <TableColumn fx:id="colDownloadCount" prefWidth="100.0" text="Downloads" />
+                                <TableColumn fx:id="colAvgRating" prefWidth="80.0" text="Rating" />
+                            </columns>
+                        </TableView>
+
+                        <HBox spacing="15.0">
+                            <children>
+                                <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" text="⬇ Download" />
+                                <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #f39c12; -fx-text-fill: white;" text="⭐ Bookmark" />
+                                <Button mnemonicParsing="false" onAction="#handleOpenSearchUsersPopup" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold;" text="🔍 Search Users" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <VBox fx:id="paneUpload" spacing="20.0" visible="false">
+                    <children>
+                        <Label text="Upload New Study Material" textFill="#2c3e50">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <VBox maxWidth="500.0" spacing="15.0" style="-fx-background-color: white; -fx-padding: 30; -fx-background-radius: 8;">
+                            <children>
+                                <Label text="Document Title:" />
+                                <TextField fx:id="txtUploadTitle" prefHeight="35.0" promptText="e.g. Past Exam Paper OOP 2025" />
+                                <Label text="Select Subject:" />
+                                <ComboBox fx:id="cbUploadSubject" prefHeight="35.0" prefWidth="440.0" />
+                                <Label text="Select Category:" />
+                                <ComboBox fx:id="cbUploadCategory" prefHeight="35.0" prefWidth="440.0" />
+                                <Label text="File Path / URL Link:" />
+                                <TextField fx:id="txtUploadUrl" prefHeight="35.0" promptText="https://storage.school.edu/..." />
+                                <Button mnemonicParsing="false" onAction="#handleSubmitForApproval" prefHeight="40.0" prefWidth="440.0" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" text="Submit for Approval" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <VBox fx:id="panePersonal" spacing="15.0" visible="false">
+                    <children>
+                        <Label text="My Personal Library" textFill="#2c3e50">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label style="-fx-font-weight: bold;" text="My Uploaded Files" />
+                                        <TableView fx:id="tableMyDocuments" VBox.vgrow="ALWAYS">
+                                            <columns>
+                                                <TableColumn fx:id="colMyDocTitle" prefWidth="180.0" text="Title" />
+                                                <TableColumn fx:id="colMyDocSubject" prefWidth="120.0" text="Subject" />
+                                                <TableColumn fx:id="colMyDocCategory" prefWidth="100.0" text="Category" />
+                                                <TableColumn fx:id="colMyDocRating" prefWidth="60.0" text="Rating" />
+                                                <TableColumn fx:id="colMyDocStatus" prefWidth="80.0" text="Status" />
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </VBox>
+                                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label style="-fx-font-weight: bold;" text="My Bookmarks" />
+                                        <TableView fx:id="tableBookmarks" VBox.vgrow="ALWAYS">
+                                            <columns>
+                                                <TableColumn fx:id="colBookmarkTitle" prefWidth="180.0" text="Title" />
+                                                <TableColumn fx:id="colBookmarkOwner" prefWidth="100.0" text="Owner" />
+                                                <TableColumn fx:id="colBookmarkSubject" prefWidth="120.0" text="Subject" />
+                                                <TableColumn fx:id="colBookmarkCategory" prefWidth="100.0" text="Category" />
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <VBox fx:id="paneAdminPanel" spacing="15.0" visible="false">
+                    <children>
+                        <Label text="ADMINISTRATIVE SYSTEM TOOLS" textFill="#c0392b">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                            <tabs>
+                                <Tab text="🏫 Departments">
+                                    <content>
+                                        <HBox spacing="15.0" style="-fx-padding: 15; -fx-background-color: white;">
+                                            <children>
+                                                <VBox prefWidth="260.0" spacing="10.0">
+                                                    <children>
+                                                        <Label style="-fx-font-weight: bold;" text="Department Name:" />
+                                                        <TextField fx:id="txtDeptName" prefHeight="35.0" promptText="e.g. Information Technology" />
+                                                        <HBox spacing="10.0">
+                                                            <children>
+                                                                <Button onAction="#handleAddDepartment" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" text="➕ Add Dept" />
+                                                                <Button onAction="#handleDeleteDepartment" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;" text="🗑 Delete" />
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                <TableView fx:id="tableDepartments" HBox.hgrow="ALWAYS">
+                                                    <columns>
+                                                        <TableColumn fx:id="colDeptId" prefWidth="100.0" text="Dept ID" />
+                                                        <TableColumn fx:id="colDeptName" prefWidth="450.0" text="Department Name" />
+                                                    </columns>
+                                                </TableView>
+                                            </children>
+                                        </HBox>
+                                    </content>
+                                </Tab>
+
+                                <Tab text="📚 Subjects">
+                                    <content>
+                                        <HBox spacing="15.0" style="-fx-padding: 15; -fx-background-color: white;">
+                                            <children>
+                                                <VBox prefWidth="260.0" spacing="10.0">
+                                                    <children>
+                                                        <Label style="-fx-font-weight: bold;" text="Subject Name:" />
+                                                        <TextField fx:id="txtSubjectName" prefHeight="35.0" promptText="e.g. Object-Oriented Programming" />
+                                                        <Label style="-fx-font-weight: bold;" text="Belongs to Department:" />
+                                                        <ComboBox fx:id="cbDeptSelector" prefHeight="35.0" prefWidth="260.0" promptText="Choose Department" />
+                                                        <HBox spacing="10.0">
+                                                            <children>
+                                                                <Button onAction="#handleAddSubject" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" text="➕ Add Subj" />
+                                                                <Button onAction="#handleDeleteSubject" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;" text="🗑 Delete" />
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                <TableView fx:id="tableSubjects" HBox.hgrow="ALWAYS">
+                                                    <columns>
+                                                        <TableColumn fx:id="colSubId" prefWidth="100.0" text="Subject ID" />
+                                                        <TableColumn fx:id="colSubName" prefWidth="250.0" text="Subject Name" />
+                                                        <TableColumn fx:id="colSubDept" prefWidth="200.0" text="Department" />
+                                                    </columns>
+                                                </TableView>
+                                            </children>
+                                        </HBox>
+                                    </content>
+                                </Tab>
+
+                                <Tab text="📂 Categories">
+                                    <content>
+                                        <HBox spacing="15.0" style="-fx-padding: 15; -fx-background-color: white;">
+                                            <children>
+                                                <VBox prefWidth="260.0" spacing="10.0">
+                                                    <children>
+                                                        <Label style="-fx-font-weight: bold;" text="Category Name:" />
+                                                        <TextField fx:id="txtCategoryName" prefHeight="35.0" promptText="e.g. Past Exam Papers" />
+                                                        <HBox spacing="10.0">
+                                                            <children>
+                                                                <Button onAction="#handleAddCategory" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" text="➕ Add Cat" />
+                                                                <Button onAction="#handleDeleteCategory" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;" text="🗑 Delete" />
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                <TableView fx:id="tableCategories" HBox.hgrow="ALWAYS">
+                                                    <columns>
+                                                        <TableColumn fx:id="colCatId" prefWidth="100.0" text="Category ID" />
+                                                        <TableColumn fx:id="colCatName" prefWidth="450.0" text="Category Name" />
+                                                    </columns>
+                                                </TableView>
+                                            </children>
+                                        </HBox>
+                                    </content>
+                                </Tab>
+
+                                <Tab text="📋 Approve Materials">
+                                    <content>
+                                        <VBox spacing="15.0" style="-fx-padding: 15; -fx-background-color: white;">
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                                    <children>
+                                                        <Label style="-fx-font-weight: bold; -fx-text-fill: #c0392b;" text="Pending Documents Request Queue" />
+                                                        <Button onAction="#loadPendingMaterials" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="🔄 Refresh Queue" />
+                                                        <ToggleButton fx:id="btnToggleAutoApprove" mnemonicParsing="false" onAction="#handleToggleAutoApprove" prefHeight="30.0" style="-fx-font-weight: bold;" text="Auto Approve: OFF" />
+                                                    </children>
+                                                </HBox>
+                                                <TableView fx:id="tablePendingMaterials" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                    <columns>
+                                                        <TableColumn fx:id="colPendId" prefWidth="60.0" text="ID" />
+                                                        <TableColumn fx:id="colPendTitle" prefWidth="180.0" text="Title" />
+                                                        <TableColumn fx:id="colPendUrl" prefWidth="200.0" text="File URL" />
+                                                        <TableColumn fx:id="colPendDept" prefWidth="120.0" text="Department" /> <TableColumn fx:id="colPendSubject" prefWidth="120.0" text="Subject" />
+                                                        <TableColumn fx:id="colPendCategory" prefWidth="100.0" text="Category" />
+                                                        <TableColumn fx:id="colPendUserId" prefWidth="80.0" text="User ID" />    </columns>
+                                                </TableView>
+                                                <HBox spacing="15.0">
+                                                    <children>
+                                                        <Button onAction="#handleApproveMaterial" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" text="✅ Approve" />
+                                                        <Button onAction="#handleRejectMaterial" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;" text="❌ Reject" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </Tab>
+
+                                <Tab text="⚠️ Reports Management">
+                                    <content>
+                                        <VBox spacing="15.0" style="-fx-padding: 15; -fx-background-color: white;">
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                                    <children>
+                                                        <Label style="-fx-font-weight: bold; -fx-text-fill: #d35400;" text="User Violation Reports Queue" />
+                                                        <Button fx:id="btnRefreshReports" onAction="#loadAdminReports" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="🔄 Refresh Reports" />
+                                                    </children>
+                                                </HBox>
+                                                <TableView fx:id="tableReports" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                    <columns>
+                                                        <TableColumn fx:id="colRepId" prefWidth="60.0" text="Report ID" />
+                                                        <TableColumn fx:id="colRepMaterialTitle" prefWidth="150.0" text="Material Title" />
+                                                        <TableColumn fx:id="colRepDept" prefWidth="120.0" text="Department" />   <TableColumn fx:id="colRepSub" prefWidth="120.0" text="Subject" />         <TableColumn fx:id="colRepCat" prefWidth="100.0" text="Category" />       <TableColumn fx:id="colRepReporter" prefWidth="100.0" text="Reporter" />
+                                                        <TableColumn fx:id="colRepUserId" prefWidth="80.0" text="Reporter ID" /> <TableColumn fx:id="colRepReason" prefWidth="180.0" text="Reason" />
+                                                        <TableColumn fx:id="colRepDate" prefWidth="120.0" text="Report Date" />
+                                                    </columns>
+                                                </TableView>
+                                                <HBox spacing="15.0">
+                                                    <children>
+                                                        <Button onAction="#handleDismissReport" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #7f8c8d; -fx-text-fill: white; -fx-font-weight: bold;" text="🛡 Dismiss" />
+                                                        <Button onAction="#handleDeleteReportedMaterial" prefHeight="35.0" prefWidth="180.0" style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;" text="🗑 Delete Material" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </Tab>
+
+                                <Tab text="👤 Users Management">
+                                    <content>
+                                        <VBox spacing="15.0" style="-fx-padding: 15; -fx-background-color: white;">
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                                    <children>
+                                                        <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="System User Statistical Database" />
+                                                        <Button onAction="#loadAdminUsers" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="🔄 Refresh Users" />
+                                                    </children>
+                                                </HBox>
+                                                <TableView fx:id="tableUsers" VBox.vgrow="ALWAYS">
+                                                    <columns>
+                                                        <TableColumn fx:id="colUsrId" prefWidth="70.0" text="User ID" />
+                                                        <TableColumn fx:id="colUsrName" prefWidth="150.0" text="Username" />
+                                                        <TableColumn fx:id="colUsrEmail" prefWidth="220.0" text="Email Address" />
+                                                        <TableColumn fx:id="colUsrRole" prefWidth="110.0" text="Role" />
+                                                        <TableColumn fx:id="colUsrUploads" prefWidth="140.0" text="Docs Contributed" />
+                                                        <TableColumn fx:id="colUsrStatus" prefWidth="110.0" text="Status" />
+                                                    </columns>
+                                                </TableView>
+                                                <HBox spacing="15.0">
+                                                    <children>
+                                                        <Button onAction="#handleLockUser" prefHeight="35.0" prefWidth="160.0" style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;" text="🔒 Lock Account" />
+                                                        <Button onAction="#handleUnlockUser" prefHeight="35.0" prefWidth="160.0" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" text="🔓 Unlock Account" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                    </children>
+                </VBox>
+
+            </children>
+        </StackPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="8.0" style="-fx-padding: 10; -fx-background-color: #bdc3c7;">
+            <children>
+                <Label fx:id="lblCurrentUser" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="User: Guest">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lblUserRole" style="-fx-font-style: italic; -fx-text-fill: #7f8c8d;" text="[Guest]">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>
